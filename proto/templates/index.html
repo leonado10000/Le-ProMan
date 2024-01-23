@@ -1,0 +1,97 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    hello world
+
+    <style>
+        table, thead, tbody, th, tr, td{
+            border: 2px solid black;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+    </style>
+    <br>
+        <table>
+            <thead>
+                <th>
+                    User table
+                </th>
+            </thead>
+            <tbody>
+                {% for el in usr %}
+                    <tr>
+                        <td>{{ el }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+ 
+        <table>
+            <thead>
+                <th>
+                    Course table
+                </th>
+            </thead>
+            <tbody>
+                {% for el in crs %}
+                    <tr>
+                        <td>{{ el }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+                <th>
+                    topics table
+                </th>
+            </thead>
+            <tbody>
+                {% for el in tpc %}
+                    <tr>
+                        <td>{{ el }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+                <th>
+                    couse topic table
+                </th>
+            </thead>
+            <tbody>
+                {% for el in ctt %}
+                    <tr>
+                        <td>{{ el }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+                <th>
+                    progress table
+                </th>
+            </thead>
+            <tbody>
+                {% for el in prg %}
+                    <tr>
+                        <td>{{ el }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+ 
+ 
+ 
+</body>
+</html>
