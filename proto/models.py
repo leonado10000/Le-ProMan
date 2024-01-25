@@ -17,6 +17,8 @@ class Courses(models.Model):
 
     def __str__(self) -> str:
         return f"{self.Course_ID} :  {self.Name}"
+    def __list__(self) -> list:
+        return [self.Course_ID,self.Name]
 
 class Topics(models.Model):
     Topic_ID = models.CharField(primary_key = True, max_length=10)
@@ -24,6 +26,8 @@ class Topics(models.Model):
 
     def __str__(self) -> str:
         return f"{self.Topic_ID} :  {self.Name}"
+    def __list__(self) -> list:
+        return [self.Topic_ID,self.Name]
 
 
 class CTtable(models.Model):
@@ -32,6 +36,8 @@ class CTtable(models.Model):
 
     def __str__(self) -> str:
         return f"{self.Course_ID} :  {self.Topics}"
+    def __list__(self) -> list:
+        return [self.Course_ID,self.Topics]
 
 class Prograss(models.Model):
     User_ID = models.ForeignKey("User", related_name = "prog_uid", on_delete = models.CASCADE)
