@@ -8,9 +8,11 @@
 
     {% include 'header.html' %}
 
-    <form action="">
+    <form action="{% url 'index' %}" method="post">
+        {% csrf_token %}
         <input type="text" name="Username" id="">
         <input type="password" name="password" id="">
+        <input type="submit" value="Login">
     </form>
 
     {% include 'footer.html' %}

@@ -7,5 +7,8 @@ urlpatterns = [
     path("user/<str:userID>", views.userPage, name="userPage"),
     path("courses/", views.courses, name="courses"),
     path("login/", views.login, name="login"),
-    path("logout/", views.logout, name="logout")
+    path("logout/", views.logout, name="logout"),
+
+    # ======= testing ==============================================================
+    path("users", views.UserTesting)
 ]

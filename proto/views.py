@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from .models import *
+from django.contrib.auth import authenticate, login
+
 # Create your views here.
-usr = User.objects.all()
+usr = [obj.__list__() for obj in User.objects.all()]
 crs = Courses.objects.all()
 tpc = Topics.objects.all()
 ctt = CTtable.objects.all()
@@ -17,14 +19,63 @@ def getTopicsByCourseID(CourseID):
     return temp
 
 
+# =========================== testings ========================================
+def UserTesting(request):
+    print(User.objects.get(pk=1))
+    return render(request, 'testing/users.html',{
+        "usr":list(usr)
+    })
+
+
+
+# =========================== testings ========================================
+
+
+
+
+
+
+from django.contrib.auth.backends import ModelBackend
+from .models import User
+
+class CustomAuthBackend(ModelBackend):
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        try:
+            user = User.objects.get(username=username)
+        except User.DoesNotExist:
+            return None
+
+        if user.check_password(password):
+            return user
+        return None
+
+
+
+
+
+
+
+
+
 def index(request):
+    login_val = "False"
+    if request.method == "POST":
+        Uname = request.POST["Username"]
+        Pword = request.POST["password"]
+        print(Uname,Pword)
+        User_obj = authenticate(request, username=Uname,password=Pword)
+        if User_obj is not None:
+            login_val = "True"
     return render(request, "index.html" , {
         "usr" : list(usr),
         "crs" : list(crs), 
         "tpc" : list(tpc), 
         "ctt" : list(ctt),
-        "prg" : list(prg)
+        "prg" : list(prg),
+        "login":login_val
     })
+
+
 
 def coursePage(request, courseName):
     # courseName = "real"
