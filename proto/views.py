@@ -7,6 +7,16 @@ tpc = Topics.objects.all()
 ctt = CTtable.objects.all()
 prg = Prograss.objects.all()
 
+
+
+def getTopicsByCourseID(CourseID):
+    temp = []
+    for i in CTtable.objects.get(Course_ID=CourseID).__list__()[1]:
+        if i!=',':
+            temp.append(Topics.objects.get(pk=int(i)).__list__()[1])
+    return temp
+
+
 def index(request):
     return render(request, "index.html" , {
         "usr" : list(usr),
@@ -35,12 +45,43 @@ def coursePage(request, courseName):
     })
 
 def userPage(request, userID):
+    user = User.objects.get(pk=userID).__list__()
+    progress_list = Prograss.objects.filter(User_ID=userID)
+    progress = []
+    for v in progress_list:
+        completed = []
+        notComplete = []
+        tpcs = getTopicsByCourseID(v.__list__()[0])
+        k = 0
+        for status in v.__list__()[1]:
+            if status=='1':
+                completed.append(tpcs[k])
+            else:
+                notComplete.append(tpcs[k])
+            k+=1
+        progress.append([v.__list__()[0],completed,notComplete])
+    print(progress)
+
     return render(request, 'userPage.html',{
-        "UserID":userID
+        "userID":user[0],
+        "userName":user[1],
+        "prograss":progress
     })
+
 
 def courses(request):
     courses = [obj.__list__() for obj in Courses.objects.all()]
+    for i in range(len(courses)):
+        temp = getTopicsByCourseID(courses[i][0])
+        courses[i].append(temp)
+
+
     return render(request, 'allCourses.html',{
-        "courses":courses
+        "courses":courses,
     })
+
+def login(request):
+    return render(request, 'login.html')
+
+def logout(request):
+    return render(request, 'logout.html')

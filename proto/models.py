@@ -9,6 +9,8 @@ class User(models.Model):
 
     def __str__(self) -> str:
         return f"{self.User_ID} :  {self.Name}"
+    def __list__(self) -> list:
+        return [self.User_ID,self.Name]
 
 
 class Courses(models.Model):
@@ -46,3 +48,5 @@ class Prograss(models.Model):
 
     def __str__(self) -> str:
         return f"{self.User_ID} :  {self.Course_ID} :==> {self.PrograssBar}"
+    def __list__(self) -> list:
+        return [self.Course_ID,self.PrograssBar]
