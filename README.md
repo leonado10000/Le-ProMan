@@ -2,13 +2,13 @@
 ```
 python manage.py startapp proto3
 ```
-  _ copy paste templates folder from proto1 to proto3
-  _ copy paste urls.py file from proto1 to proto3
-  _ copy paste veiws.py file from proto1 to proto3
+  - copy paste templates folder from proto1 to proto3
+  - copy paste urls.py file from proto1 to proto3
+  - copy paste veiws.py file from proto1 to proto3
 2. check in settings.py
-   _ check "Installed apps" variabe , add proto3 in installed apps
-   _ If there are other proto apps , comment them
-   _ Create a new database inn pgadmin 4 ,give name test4 make youself the owner.
+    - check "Installed apps" variabe , add proto3 in installed apps
+    - If there are other proto apps , comment them
+    - Create a new database inn pgadmin 4 ,give name test4 make youself the owner.
 2.1 go to urls.py in dbms folder
   _ add in urlspatterns 
   ```
