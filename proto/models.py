@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
 from django.db import models
 import datetime
 from django import forms
@@ -7,6 +7,9 @@ from django import forms
 
 def def_img():
     return "https://static.wikia.nocookie.net/solo-leveling/images/8/8b/Jinwoo4.jpg/revision/latest?cb=20210803222649"
+
+
+
 
 class User(models.Model):
     User_ID = models.CharField(primary_key = True,max_length = 10)
@@ -18,7 +21,6 @@ class User(models.Model):
     # last_login = models.DateTimeField(auto_now=True)
     # Login_map = models.CharField(max_length=10000,null=True)
     User_image = models.CharField(max_length=150,default=def_img)
-
     is_superuser = False
 
     def __str__(self) -> str:

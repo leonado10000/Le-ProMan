@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'proto',
+    # 'proto',
+    'proto1',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -77,7 +78,7 @@ WSGI_APPLICATION = "dbms.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "test2",
+        "NAME": "test3",
         'USER': 'moni',
         'PASSWORD': 'moni'
     }
