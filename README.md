@@ -12,7 +12,7 @@ python manage.py startapp proto3
 2.1 go to urls.py in dbms folder
   _ add in urlspatterns 
   ```
-    path('', include("proto1.urls")),
+    path('', include("proto3.urls")),
   ```
 
 3. from the basic_models.py file outside copy paste all the classes as it is in models.py of proto3
