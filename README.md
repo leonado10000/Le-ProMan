@@ -9,14 +9,16 @@ python manage.py startapp proto3
     - check "Installed apps" variabe , add proto3 in installed apps
     - If there are other proto apps , comment them
     - Create a new database inn pgadmin 4 ,give name test4 make youself the owner.
-2.1 go to urls.py in dbms folder
+
+
+3. go to urls.py in dbms folder
   _ add in urlspatterns 
   ```
     path('', include("proto3.urls")),
   ```
 
-3. from the basic_models.py file outside copy paste all the classes as it is in models.py of proto3
-4. ```
+4. from the basic_models.py file outside copy paste all the classes as it is in models.py of proto3
+5. ```
    python manage.py makemigrations proto3
    python manage.py migrate
    python manage.py createsuperuser
