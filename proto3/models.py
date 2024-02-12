@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager, PermissionsMixin
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 import datetime
 from django import forms
+
 # Create your models here.
 
 def def_img():
@@ -71,11 +73,9 @@ class Topics(models.Model):
 
 class CTtable(models.Model):
     Course_ID = models.ForeignKey('Courses', related_name = "ct_cid", on_delete = models.CASCADE)
-    Topics_IDs = models.CharField(max_length=10000,null=True)
-    Related_topic_IDs = models.CharField(max_length=10000,null=True)
+    Topics_IDs = ArrayField(models.CharField(max_length=100), default=list, blank=True)
     Course_rating = models.IntegerField(default=0)
     Recommended_Time = models.IntegerField(default=0)
-
 
     def __str__(self) -> str:
         return f"{self.Course_ID}"
@@ -90,8 +90,8 @@ class CTtable(models.Model):
 class Progress(models.Model):
     User_ID = models.ForeignKey("TrackerUser", related_name = "prog_uid", on_delete = models.CASCADE)
     Course_ID = models.ForeignKey('Courses', related_name = "prog_cid", on_delete = models.CASCADE)
-    Completed_topic_IDs = models.CharField(max_length=1000,null=True)
-    Incompleted_topic_IDs = models.CharField(max_length=1000,null=True)
+    completed_topics = ArrayField(models.CharField(max_length=100), default=list, blank=True)
+    incomplete_topics = ArrayField(models.CharField(max_length=100), default=list, blank=True)
     Start_date = models.DateTimeField(auto_now=True)
     Finish_date = models.DateTimeField(auto_now=True) # if Finish date is same as Start_date // display as unfinished
 

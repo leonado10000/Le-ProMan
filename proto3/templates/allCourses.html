@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses</title>
+</head>
+<body>
+
+    <style>
+        #course-links:visited,#course-links{
+            text-decoration: none;
+            -webkit-text-fill-color: aliceblue;
+        }
+    </style>
+    {% include 'header.html' %}
+    <ol>       
+        {% for course in courses %}
+            <li>
+                <a id="course-links" href="{% url 'coursePage' course.0 %}">{{ course.1 }}</a>
+                <ul>
+                {% for topic in course.2 %}
+                    <li>
+                    {{ topic }}
+                    </li>
+                {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ol>
+    {% include 'footer.html' %}
+    
+</body>
+</html>

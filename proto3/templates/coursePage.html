@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    {% include 'header.html' %}
+
+    Course Name : {{ courseName }}
+    <br>
+    <br>
+    Course topics : 
+    <ol>
+        {% for topic in topics %}
+        <div style="display: grid;grid-template-columns: 1fr 9fr;background-color: #240090;">
+            <input type="checkbox" name="" id=""> {{ topic }}
+        </div>
+        {% endfor %}
+    </ol>
+
+    
+    {% include 'footer.html' %}
+</body>
+</html>
