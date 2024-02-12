@@ -80,7 +80,7 @@ class CTtable(models.Model):
     def __str__(self) -> str:
         return f"{self.Course_ID}"
     def __list__(self) -> list:
-        return [self.Course_ID,self.Topics_IDs,self.Related_topic_IDs,self.Course_rating,self.Recommended_Time]
+        return [self.Course_ID,self.Topics_IDs,self.Course_rating,self.Recommended_Time]
 
 
 
@@ -90,8 +90,8 @@ class CTtable(models.Model):
 class Progress(models.Model):
     User_ID = models.ForeignKey("TrackerUser", related_name = "prog_uid", on_delete = models.CASCADE)
     Course_ID = models.ForeignKey('Courses', related_name = "prog_cid", on_delete = models.CASCADE)
-    completed_topics = ArrayField(models.CharField(max_length=100), default=list, blank=True)
-    incomplete_topics = ArrayField(models.CharField(max_length=100), default=list, blank=True)
+    Completed_topics = ArrayField(models.CharField(max_length=100), default=list, blank=True)
+    Incomplete_topics = ArrayField(models.CharField(max_length=100), default=list, blank=True)
     Start_date = models.DateTimeField(auto_now=True)
     Finish_date = models.DateTimeField(auto_now=True) # if Finish date is same as Start_date // display as unfinished
 
@@ -99,4 +99,4 @@ class Progress(models.Model):
     def __str__(self) -> str:
         return f"{self.User_ID} :  {self.Course_ID}"
     def __list__(self) -> list:
-        return [self.User_ID,self.Course_ID,self.Completed_topic_IDs,self.Incompleted_topic_IDs,self.Start_date,self.Finish_date]
+        return [self.User_ID,self.Course_ID,self.Completed_topics,self.Incomplete_topics,self.Start_date,self.Finish_date]
