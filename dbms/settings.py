@@ -25,7 +25,7 @@ SECRET_KEY = "django-insecure-#vnfh5cavbf2h5u$b%$9e%me^8b&q3%1xk88qbag2%ourz(u1o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','192.168.0.187']
 
 
 # Application definition
@@ -33,7 +33,14 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # 'proto',
     # 'proto1',
+<<<<<<< Updated upstream
     'proto3',
+=======
+    # 'proto2',
+    'user.apps.UserConfig',
+    'crispy_forms',
+    'crispy_bootstrap4',
+>>>>>>> Stashed changes
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -104,6 +111,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# settings.py
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -126,3 +137,4 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
