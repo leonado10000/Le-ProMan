@@ -1,0 +1,22 @@
+<!-- course_data.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Data</title>
+  </head>
+  <body>
+    <h1>Course Data</h1>
+    <ul>
+      {% for course in courses %}
+      <li>
+        <h3>{{ course.Course_name }}</h3>
+        <p>No. of Enrollments: {{ course.No_of_enrolment }}</p>
+        <p>Description: {{ course.Course_description }}</p>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

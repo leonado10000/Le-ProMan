@@ -33,14 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1','192.168.0.187']
 INSTALLED_APPS = [
     # 'proto',
     # 'proto1',
-<<<<<<< Updated upstream
     'proto3',
-=======
-    # 'proto2',
-    'user.apps.UserConfig',
-    'crispy_forms',
-    'crispy_bootstrap4',
->>>>>>> Stashed changes
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

@@ -21,7 +21,7 @@ class TrackerUser(models.Model):
     Their_Password = models.CharField(max_length=20, default = "0000")
     Their_Join_Date = models.DateTimeField(auto_now = True)
     Their_last_login = models.DateTimeField(auto_now=True)
-    Their_Login_map = models.CharField(max_length=10000,null=True)
+    # Their_Login_map = models.CharField(max_length=10000,null=True)
     Their_User_image = models.CharField(max_length=150,default=def_img)
 
     def __str__(self) -> str:
@@ -55,7 +55,7 @@ class Topics(models.Model):
     Topic_name = models.CharField(max_length=50,default="(*-*)")
     Topic_description = models.CharField(max_length=1200,null=True)
     Last_updated = models.DateTimeField(auto_now=True)
-    Topic_Sources = models.CharField(max_length=1000,null=True)
+    
 
     def __str__(self) -> str:
         return f"{self.Topic_ID} :  {self.Topic_name}"
@@ -73,14 +73,15 @@ class Topics(models.Model):
 
 class CTtable(models.Model):
     Course_ID = models.ForeignKey('Courses', related_name = "ct_cid", on_delete = models.CASCADE)
-    Topics_IDs = ArrayField(models.CharField(max_length=100), default=list, blank=True)
-    Course_rating = models.IntegerField(default=0)
-    Recommended_Time = models.IntegerField(default=0)
-
+    Topics_ID = models.ForeignKey('Topics', related_name = "ct_tid", on_delete = models.CASCADE, default = "1")
+    # Course_rating = models.IntegerField(default=0)
+    # Recommended_Time = models.IntegerField(default=0)
+    Topic_Sources = models.CharField(max_length=1000,null=True)
+    
     def __str__(self) -> str:
         return f"{self.Course_ID}"
     def __list__(self) -> list:
-        return [self.Course_ID,self.Topics_IDs,self.Course_rating,self.Recommended_Time]
+        return [self.Course_ID,self.Topics_ID,self.Topic_Sources]
 
 
 
@@ -100,3 +101,9 @@ class Progress(models.Model):
         return f"{self.User_ID} :  {self.Course_ID}"
     def __list__(self) -> list:
         return [self.User_ID,self.Course_ID,self.Completed_topics,self.Incomplete_topics,self.Start_date,self.Finish_date]
+    def save(self, *args, **kwargs):
+        # Increase the number of enrollments for the course
+        self.Course_ID.No_of_enrolment += 1
+        self.Course_ID.save()  # Save the course with updated enrollment count
+
+        super(Progress, self).save(*args, **kwargs)
