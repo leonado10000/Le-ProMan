@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -33,14 +34,7 @@ ALLOWED_HOSTS = ['127.0.0.1','192.168.0.187']
 INSTALLED_APPS = [
     # 'proto',
     # 'proto1',
-<<<<<<< Updated upstream
     'proto3',
-=======
-    # 'proto2',
-    'user.apps.UserConfig',
-    'crispy_forms',
-    'crispy_bootstrap4',
->>>>>>> Stashed changes
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -138,3 +132,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

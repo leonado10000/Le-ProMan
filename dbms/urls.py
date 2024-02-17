@@ -20,15 +20,13 @@ from user import views as user_view
 from django.contrib.auth import views as auth
  
 urlpatterns = [
-<<<<<<< Updated upstream
     path("admin/", admin.site.urls),
     # path('xxx/', include("proto.urls")),
     # path('', include("proto1.urls")),
     # path('', include('django.contrib.auth.urls')),
     path('', include("proto3.urls")),
-=======
  
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
  
     ##### user related path########################## 
     path('', include('user.urls')),
@@ -36,5 +34,4 @@ urlpatterns = [
     path('logout/', auth.LogoutView.as_view(template_name ='user/index.html'), name ='logout'),
     path('register/', user_view.register, name ='register'),
  
->>>>>>> Stashed changes
 ]
