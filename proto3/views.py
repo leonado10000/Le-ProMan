@@ -1,9 +1,11 @@
-from django.shortcuts import render
-from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from django.http import HttpResponseNotFound, JsonResponse
 from .models import *
 from django.contrib.auth import authenticate, login
 from django.db.models import Count, F, FloatField, ExpressionWrapper, Subquery, OuterRef, Func, Case, When, Value
 from django.db.models.functions import NullIf, Cast
+from django.db import connection
+from .forms import ProfileImageForm 
 
 # Create your views here.
 # def index(request):
@@ -86,7 +88,7 @@ class ArrayLength(Func):
     function = 'CARDINALITY'
     template = '%(function)s(%(expressions)s)'
 
-# from django.db.models import Case, When, Value, FloatField
+ # Import the form for handling image uploads
 
 def user_profile_with_progress(request, user_id):
     # Retrieve the user profile
@@ -111,11 +113,41 @@ def user_profile_with_progress(request, user_id):
         )
     ).values('Course_ID', 'Course_ID__Course_name', 'total_topics', 'completed_topics_count', 'completion_percentage')
 
+    # Check if the form is submitted
+    if request.method == 'POST':
+        # Instantiate the form with the POST data and files
+        form = ProfileImageForm(request.POST, request.FILES, instance=user_profile)
+        # Check if the form is valid
+        if form.is_valid():
+            # Save the form to update the user profile with the uploaded image
+            form.save()
+            # Redirect to the user profile page
+            return redirect('user_profile_with_progress', user_id=user_id)
+    else:
+        # If the request method is not POST, instantiate an empty form
+        form = ProfileImageForm()
+
     # Prepare the data to be passed to the template
     context = {
         'user_profile': user_profile,
-        'courses_with_completion': courses_with_completion
+        'courses_with_completion': courses_with_completion,
+        'form': form,  # Pass the form to the template
     }
 
     # Render the template with the data
-    return render(request, 'user_profile_with_progress.html', context)
+    return render(request, 'DBMS Project/profile/profile.html', context)
+
+
+def course_topics(request, selected_course_id):
+    # Retrieve the topics for the selected course
+    course_name = Courses.objects.get(Course_ID=selected_course_id).Course_name
+    topics = Topics.objects.filter(ct_tid__Course_ID_id=selected_course_id)
+
+    # Prepare the data to be passed to the template
+    context = {
+        'topics': topics,
+        'course_name': course_name,
+    }
+
+    # Render the template with the data
+    return render(request, 'courses/course_topic.html', context)

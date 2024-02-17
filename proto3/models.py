@@ -22,7 +22,7 @@ class TrackerUser(models.Model):
     Their_Join_Date = models.DateTimeField(auto_now = True)
     Their_last_login = models.DateTimeField(auto_now=True)
     # Their_Login_map = models.CharField(max_length=10000,null=True)
-    Their_User_image = models.CharField(max_length=150,default=def_img)
+    Their_User_image = models.ImageField(upload_to='user_images/', default='static/images/default.png')  # ImageField for storing user images
 
     def __str__(self) -> str:
         return f"{self.Their_ID} > {self.Their_Username} =  {self.Their_Name}"
