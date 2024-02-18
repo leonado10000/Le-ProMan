@@ -74,7 +74,10 @@ def about(request):
 	return render(request, 'Aboutus/png.html')
 
 def course_list(request):
-	return render(request, 'course_list/courseListPage.html')
+	courseData = [x.__dict__ for x in Courses.objects.all()]
+	return render(request, 'course_list/courseListPage.html' ,{
+		"courseData":courseData
+	})
 
 
 
