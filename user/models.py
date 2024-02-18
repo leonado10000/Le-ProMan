@@ -2,20 +2,17 @@ from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
 def def_img():
-    return "https://static.wikia.nocookie.net/solo-leveling/images/8/8b/Jinwoo4.jpg/revision/latest?cb=20210803222649"
+    return "https://static.wikia.nocookie.net/solo-leveling/images/8/8b/Jinwoo4.jpg"
 
 
 class profile(models.Model):
-    uname = models.ForeignKey(User, on_delete=models.CASCADE ,related_name = "fk")
-    profile_img = models.CharField(max_length = 200,default =def_img)
-
-    Their_Name = models.CharField(max_length = 100,null=True)
-    Their_Login_map = models.CharField(max_length=10000,null=True)
+    uid = models.ForeignKey(User, on_delete=models.CASCADE ,related_name = "fk")
+    profile_img = models.CharField(max_length = 200,default = def_img)
 
     def __str__(self) -> str:
-        return f"{self.Their_Name}"
+        return f"{self.uid}"
     def __list__(self) -> list:
-        usr = User.objects.get(username = self.uname)
+        usr = User.objects.get(uid = self.uid)
         return [usr]
 
 
@@ -77,9 +74,9 @@ class CTtable(models.Model):
 
 
 class Prograss(models.Model):
-    User_ID = models.ForeignKey("Profile", related_name = "prog_uid", on_delete = models.CASCADE)
+    User_ID = models.ForeignKey(User, related_name = "prog_uid", on_delete = models.CASCADE)
     Course_ID = models.ForeignKey('Courses', related_name = "prog_cid", on_delete = models.CASCADE)
-    Completed_topic_IDs = models.CharField(max_length=1000,null=True)
+    Completed_topic_IDs = models.CharField(max_length=1000,null=True,default = "0")
     Incompleted_topic_IDs = models.CharField(max_length=1000,null=True)
     Start_date = models.DateTimeField(auto_now=True)
     Finish_date = models.DateTimeField(auto_now=True) # if Finish date is same as Start_date // display as unfinished

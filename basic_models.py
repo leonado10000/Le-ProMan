@@ -9,8 +9,6 @@ def def_img():
     return "https://static.wikia.nocookie.net/solo-leveling/images/8/8b/Jinwoo4.jpg/revision/latest?cb=20210803222649"
 
 
-
-
 class TrackerUser(models.Model):
     Their_ID = models.CharField(primary_key = True,max_length = 10)
     Their_Username = models.CharField(max_length=100,default="(^o^)")
@@ -28,8 +26,6 @@ class TrackerUser(models.Model):
         return [self.Their_ID,self.Their_Username,self.Their_Name,self.Their_Email,self.Their_Join_Date,self.Their_User_image]
     def check_password(self,pword) -> bool:
         return self.Their_Password == pword
-
-
 
 
 
@@ -62,13 +58,6 @@ class Topics(models.Model):
 
 
 
-
-
-
-
-
-
-
 class CTtable(models.Model):
     Course_ID = models.ForeignKey('Courses', related_name = "ct_cid", on_delete = models.CASCADE)
     Topics_IDs = models.CharField(max_length=10000,null=True)
@@ -81,10 +70,6 @@ class CTtable(models.Model):
         return f"{self.Course_ID}"
     def __list__(self) -> list:
         return [self.Course_ID,self.Topics_IDs,self.Related_topic_IDs,self.Course_rating,self.Recommended_Time]
-
-
-
-
 
 
 class Progress(models.Model):
