@@ -370,45 +370,16 @@
     </div>
   </div>
   
-  <!-- <header class="row">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-      <div class="navbar-header">
-      <button class="navbar-toggle" data-toggle="collapse" data-target="#mainNavBar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" class="styleheader" href="{% url "index" %}">project</a>
-      </div>
-      <div class="collapse navbar-collapse" id="mainNavBar">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="{% url 'index' %}">Home</a></li>
-        <li><a href="{% url 'courses' %}">Courses</a></li>
-  
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
-        {% else %}
-        <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span>  Sign up</a></li>
-        <li><a href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>  Log in</a></li>
-        {% endif %}
-      </ul>
-      </div>
-    </div>
-    </nav>
-  </header> -->
 
   <div class="navbar">
-    <!-- <a href="index.html" class="navbar-icon"><i class="fas fa-arrow-left"></i></a> -->
-    <h2 class="navbar-brand">PYTHON COURSES</h2>
-    <!-- <a href="firstpage_1.HTML" class="navbar-icon"><i class="fas fa-home"></i></a> -->
+    <h2 class="navbar-brand">{{ courseData.Course_name }}</h2>
     <div class="collapse navbar-collapse" id="mainNavBar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="{% url 'index' %}">Home</a></li>
         <li><a href="{% url 'courses' %}">Courses</a></li>
   
         {% if user.is_authenticated %}
+        <li><a href="{% url 'user' user.username %}"><span class="glyphicon glyphicon-log-out"></span>  Your Profile</a></li>
         <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
         {% else %}
         <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span>  Sign up</a></li>
@@ -444,7 +415,7 @@
           <br><a href="{{ topic_data.Topic_Sources }}" class="view-course-button">View Course</a>
         </div>
         <br>
-      </div>
+      </div>  
         {% endfor %}
 
 </div>
@@ -465,7 +436,7 @@
     
     {% else %}
     <a href="{% url 'login' %}">
-      <button >Login In</button>
+      <button>Login In</button>
     </a>
     Login to use tracking functions
     {% endif %}

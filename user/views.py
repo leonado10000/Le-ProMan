@@ -75,6 +75,8 @@ def about(request):
 
 def course_list(request):
 	courseData = [x.__dict__ for x in Courses.objects.all()]
+	for el in courseData:
+		el['Course_description'] = el['Course_description'][:100]
 	return render(request, 'course_list/courseListPage.html' ,{
 		"courseData":courseData
 	})

@@ -818,6 +818,7 @@ var slider = tns({
           <li><a href="{% url 'courses' %}">Courses</a></li>
     
           {% if user.is_authenticated %}
+          <li><a href="{% url 'user' user.username %}"><span class="glyphicon glyphicon-log-out"></span>  Your Profile</a></li>
           <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
           {% else %}
           <li><a href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span>  Sign up</a></li>
