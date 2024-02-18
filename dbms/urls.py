@@ -24,7 +24,7 @@ urlpatterns = [
     # path('xxx/', include("proto.urls")),
     # path('', include("proto1.urls")),
     # path('', include('django.contrib.auth.urls')),
-    path('', include("proto3.urls")),
+    # path('', include("proto3.urls")),
  
     # path('admin/', admin.site.urls),
  

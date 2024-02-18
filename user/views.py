@@ -73,8 +73,18 @@ def Login(request):
 def about(request):
 	return render(request, 'Aboutus/png.html')
 
-def coursesPage(request):
-	return render(request, 'course_list/index.html')
+def course_list(request):
+	return render(request, 'course_list/courseListPage.html')
+
+
+
+
+
+
+
+
+
+
 
 def pprofile(request,username):
 	if request.user.is_authenticated:
@@ -94,6 +104,15 @@ def pprofile(request,username):
 			return redirect('index')
 	else:
 		return redirect('login')
+
+
+
+
+
+
+
+
+
 
 def course(request, courseid):
 	course = Courses.objects.get(Course_ID = courseid).__dict__
@@ -136,6 +155,3 @@ def course(request, courseid):
 		"progressData":progressData
 	})
 
-
-def course_list(request):
-	return render(request, 'course_list/index.html')
