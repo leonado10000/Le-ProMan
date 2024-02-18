@@ -20,8 +20,13 @@ from user import views as user_view
 from django.contrib.auth import views as auth
  
 urlpatterns = [
+    path("admin/", admin.site.urls),
+    # path('xxx/', include("proto.urls")),
+    # path('', include("proto1.urls")),
+    # path('', include('django.contrib.auth.urls')),
+    path('', include("proto3.urls")),
  
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
  
     ##### user related path########################## 
     path('', include('user.urls')),
