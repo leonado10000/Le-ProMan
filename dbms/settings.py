@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,13 +26,19 @@ SECRET_KEY = "django-insecure-#vnfh5cavbf2h5u$b%$9e%me^8b&q3%1xk88qbag2%ourz(u1o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','192.168.0.187']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'proto',
+    # 'proto',
+    # 'proto1',
+    # 'proto2',
+    # 'proto3',
+    'user.apps.UserConfig',
+    'crispy_forms',
+    'crispy_bootstrap4',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -77,7 +84,7 @@ WSGI_APPLICATION = "dbms.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "test2",
+        "NAME": "test3",
         'USER': 'moni',
         'PASSWORD': 'moni'
     }
@@ -102,6 +109,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# settings.py
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+]
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
@@ -124,3 +135,8 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!-- Website - www.codingnepalweb.com -->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Card Slider HTML CSS JavaScript | codingNepal</title>
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="css/swiper-bundle.min.css" />
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+       .navbar {
+        background-color: blue;
+        padding: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        position: fixed; /* Fixed position to make it appear at the top */
+        top: 0; /* Stick to the top */
+        z-index: 999; /* Ensure it's above other content */
+      }
+  
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+      }
+  
+      .navbar a:hover {
+        background-color: darkblue;
+      }
+  
+      .navbar-brand {
+        flex-grow: 1;
+        text-align: center;
+        font-size: 24px;
+        color: white;
+        font-weight: bolder;
+      }
+
+      .container {
+        margin-top: 70px; /* Adjust margin-top to prevent content from being hidden underneath the navbar */
+      }
+    </style>
+    
+  </head>
+  <body>
+   <div class="navbar">
+      <a href="firstpage_1.html" class="navbar-icon"><i class="fas fa-arrow-left"></i></a>
+      <h2 class="navbar-brand">COURSES</h2>
+      <a href="firstpage_1.HTML" class="navbar-icon"><i class="fas fa-home"></i></a>
+    </div>
+    <div class="container swiper">
+      <div class="slide-container">
+        <div class="card-wrapper swiper-wrapper">
+          <div class="card swiper-slide">
+            <div class="image-box">
+              <img src=" https://w7.pngwing.com/pngs/578/816/png-transparent-java-class-file-java-platform-standard-edition-java-development-kit-java-runtime-environment-coffee-jar-text-class-orange-thumbnail.png" alt="" />
+            </div>
+            <div class="profile-details">
+              
+              <div class="name-job">
+                <h3 class="name">JAVA courses</h3>
+                <a href="https://www.w3schools.com/">Visit here -></a>
+                
+              </div>
+            </div>
+          </div>
+          <div class="card swiper-slide">
+            <div class="image-box">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0PaKAhIxnmlZ66fVF9HS5cZhUgO1iFwiY0-SOTUcjW8bVTFgolpgykOBEzDkoaNvCusU&usqp=CAU" alt="" />
+            </div>
+            <div class="profile-details">
+             
+              <div class="name-job">
+                <h3 class="name">Python courses</h3>
+                <a href="https://www.w3schools.com/">Visit here -></a>
+              </div>
+            </div>
+          </div>
+          <div class="card swiper-slide">
+            <div class="image-box">
+              <img src="https://assets.stickpng.com/thumbs/5847f5bdcef1014c0b5e489c.png" alt="" />
+            </div>
+            <div class="profile-details">
+              
+              <div class="name-job">
+                <h3 class="name">HTML courses</h3>
+                  <a href="https://www.w3schools.com/">Visit here -></a>
+              </div>
+            </div>
+          </div>
+          <div class="card swiper-slide">
+            <div class="image-box">
+              <img src=" https://e1.pngegg.com/pngimages/326/868/png-clipart-css3-badge-blue-and-white-css-icon-thumbnail.png" alt="" />
+            </div>
+            <div class="profile-details">
+              
+              <div class="name-job">
+                <h3 class="name">Css courses</h3>
+                <a href="https://www.w3schools.com/">Visit here -></a>
+              </div>
+            </div>
+          </div>
+          <div class="card swiper-slide">
+            <div class="image-box">
+              <img src=" https://clipart-library.com/image_gallery2/PHP-Logo-Free-Download-PNG.png" alt="" />
+            </div>
+            <div class="profile-details">
+             
+              <div class="name-job">
+                <h3 class="name">mysql</h3>
+                <a href="https://www.w3schools.com/">Visit here -></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="swiper-button-next swiper-navBtn"></div>
+      <div class="swiper-button-prev swiper-navBtn"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+
+    <script src="js/swiper-bundle.min.js "></script>
+    <script src="js/script.js"></script>
+    <script src="script1.js"></script>
+
+   
+    
+  </body>
+</html>

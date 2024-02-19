@@ -1,0 +1,30 @@
+<!-- your_template.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Topics with Checkboxes</title>
+    <!-- Add any CSS styling here -->
+    <style>
+        /* Add your CSS styling for checkboxes here */
+        .topic-checkbox {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Topics with Checkboxes</h1>
+    <form action="{% url 'submit_topic_completion' %}" method="POST">
+        {% csrf_token %}
+        {% for topic_id, topic_name in topics_for_course %}
+            <label class="topic-checkbox">
+                <input type="checkbox" name="topic" value="{{ topic_id }}" {% if topic_id in completed_topics %}checked{% endif %}>
+                {{ topic_name }}
+            </label>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
