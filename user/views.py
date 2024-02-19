@@ -13,11 +13,30 @@ from .models import *
 #################### index####################################### 
 def index(request):
 	data = ""
+	profileCreated = False
+	profiledata = ""
+
+
 	if request.user.is_authenticated:
 		data = User.objects.get(username=request.user.username).__dict__
+		if request.method == "POST":
+			if request.POST['createProfile'] == 'Activate Profile':
+				obj = profile(uid = User.objects.get(username=request.user.username))
+				obj.save()
+	
+		# print("RUn",data['id'])
+		try:
+			profileCreated = True
+			profiledata = profile.objects.get(uid = data['id']).__dict__
+
+		except:
+			profileCreated = False
+		# print(profiledata)
 	return render(request, 'user/index.html', {
 		'title':'index',
-		'userdata' : data
+		'userdata' : data,
+		"profiledata":profiledata,
+		"profileCreated":profileCreated
 		})
 
 ########### register here ##################################### 
@@ -91,20 +110,31 @@ def course_list(request):
 
 
 
-def pprofile(request,username):
+def pprofile(request,usernname):
+	profiledata = ""
 	if request.user.is_authenticated:
-		try:
-			userdata = User.objects.get(username=username)
-			profiledata = ""
+		# print("Working")
+		# try:
+			userdata = User.objects.get(username=usernname)
+			profiledata = profile.objects.get(uid = userdata).__dict__
+			#---------------------------------------------------
+			#---------------------------------------------------
+			# If the user is loggeed in bring all his progress data 
+			progressData = [x.__dict__ for x in Prograss.objects.filter(User_ID = userdata)]
 			if userdata:
 				userdata = userdata.__dict__
-				profiledata = profile.objects.get(uid = userdata['id'])
 			
+			for prog in progressData:
+				prog['coursename'] = Courses.objects.get(Course_ID = prog['Course_ID_id']).__dict__['Course_name']
+				prog['percentage'] =  "%.2f" % (100*len([x for x in prog['Completed_topic_IDs'].split(',') if '0' <= x <= '9999'])/len([x for x in prog['Incompleted_topic_IDs'].split(',') if '0' <= x <= '999' ]))
+			
+				print([x for x in prog['Completed_topic_IDs'].split(',') if '0' <= x <= '9999'],[x for x in prog['Incompleted_topic_IDs'].split(',') if '0' <= x <= '999' ])
 			return render(request, 'profile/profile.html' ,{
 				"userdata" : userdata,
-				"profiledata":profiledata
+				"profiledata":profiledata,
+				"progressData":progressData
 			})
-		except :
+		# except :
 			messages.info(request, "User does not exist")
 			return redirect('index')
 	else:
@@ -121,36 +151,49 @@ def pprofile(request,username):
 
 def course(request, courseid):
 	course = Courses.objects.get(Course_ID = courseid).__dict__
-	topicdata = [Topics.objects.get(Topic_ID=tid).__dict__ for tid in str(CTtable.objects.get(Course_ID=course['Course_ID']).__dict__['Topics_IDs']).split(',')]
+	print([tid for tid in CTtable.objects.get(Course_ID=course['Course_ID']).__dict__['Topics_IDs'].split(',') if '-10' <= tid <= '9999' ])
+	topicdata = [Topics.objects.get(Topic_ID=tid).__dict__ for tid in str(CTtable.objects.get(Course_ID=course['Course_ID']).__dict__['Topics_IDs']).split(',') if '-10' <= tid <= '99999' ]
 	enrollementStatus = False
 	progressData = ""
-
-
-
-
-
 	if request.user.is_authenticated:
-		# print(request.user.id)
-		progressDatas = [x.__dict__ for x in Prograss.objects.filter(User_ID = 1)]
+		# ---------------------------------------------------
+		# Only if the user is logged in and enrolled in the course
+		# Following id to save the progress
+		if request.method == "POST":
+			print(request.POST)
+
+			if request.POST.get("enroll-button", 0) == 'Enroll':
+				incmplt_tpc = "".join([str(x["Topic_ID"]) + "," for x in topicdata])
+				print(incmplt_tpc)
+				p = Prograss(User_ID = request.user ,Course_ID = Courses.objects.get(Course_ID = courseid) ,Completed_topic_IDs = "0",Incompleted_topic_IDs=incmplt_tpc)
+				print("saved")
+				p.save()
+		
+			elif request.POST.get("save-progress-button", 0) == "SaveProgress" :
+				print(request.POST.get("enroll-button", 0))
+				completedTopics = ""
+				for i in range(50):
+					if 'on' in request.POST.get(f"topic_{i}_done", ''):
+						completedTopics += str(i)+","
+				
+				# MyModel.objects.filter(pk=some_value).update(field1='some value')
+				for prog in [x for x in Prograss.objects.filter(User_ID = request.user.id)]:
+					if prog.__dict__['Course_ID_id'] == courseid:
+						prog.__dict__["Completed_topic_IDs"] = completedTopics
+						print(prog)
+						prog.save()
+
+
+		progressDatas = [x.__dict__ for x in Prograss.objects.filter(User_ID = request.user.id)]
 		for val in progressDatas:
-			# print(val,course)
 			if str(val['Course_ID_id']) == course['Course_ID']:
 				progressData = val
+				# print(topicdata)
 				enrollementStatus = True
+				for tdata in  topicdata:
+					tdata["Completed"] = True if tdata['Topic_ID'] in "".join(val['Completed_topic_IDs']).split(',') else False
 
 
-				# ---------------------------------------------------
-				# Only if the user is logged in and enrolled in the course
-				# Following id to save the progress
-				if request.method == "POST":
-					print(request.POST)
-					print(topicdata)
-
-
-
-
-
-	# print(course['Image_link'])
 	return render(request, 'courses/general.html', {
 		"courseData":course,
 		"topicdatas_basic":topicdata,

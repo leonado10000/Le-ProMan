@@ -23,9 +23,10 @@
       padding: 20px;
       font-family: Arial, sans-serif;
        /* Add an attractive background image */
-      background-size: cover;
+      background-size: contain;
       background-position: center;
-      color: rgba(4, 4, 44, 0.856); /* Change text color to blue */
+      background-repeat: no-repeat;
+      background-color: rgba(0, 0, 0, 0.856); /* Change text color to blue */
       min-height: 100vh; /* Ensure full viewport height */
     }
     .navbar {
@@ -410,8 +411,12 @@
         <br>
         <div class="sub-course">
           <div class="sub-title">
-            <input name="topic_{{ topic_data.Topic_ID }}_done" type="checkbox" class="completed-checkbox"> {{ topic_data.Topic_name }}</div>
-          <div class="description" style="max-height: 60px;overflow: hidden;"> {{ topic_data.Topic_description }} </div>
+            {% if topic_data.Completed %}
+            <input name="topic_{{ topic_data.Topic_ID }}_done" type="checkbox" class="completed-checkbox" checked="True"> {{ topic_data.Topic_name }}</div>
+            {% else %}
+            <input name="topic_{{ topic_data.Topic_ID }}_done" type="checkbox" class="completed-checkbox" > {{ topic_data.Topic_name }}</div>
+            {% endif %}
+            <div class="description" style="max-height: 60px;overflow: hidden;"> {{ topic_data.Topic_description }} </div>
           <br><a href="{{ topic_data.Topic_Sources }}" class="view-course-button">View Course</a>
         </div>
         <br>
@@ -427,16 +432,17 @@
     {% if user.is_authenticated %}
       {% if isEnrolled %}
         {{ isEnrolled }}
-        <button class="save-progress-button">Save Progress</button>
+        <input class="save-progress-button" name="save-progress-button" type="submit" value="SaveProgress">
         {{ progressData }}
-      {% else %}
+        {% else %}
+        <input class="save-progress-button" name="enroll-button" type="submit" value="Enroll">
         {{ isEnrolled }}
         get enrolled
       {% endif %}
     
     {% else %}
     <a href="{% url 'login' %}">
-      <button>Login In</button>
+      Login In
     </a>
     Login to use tracking functions
     {% endif %}
@@ -578,9 +584,9 @@
     }
   }
   const saveButton = document.querySelector('.save-progress-button');
-saveButton.addEventListener('click', function() {
-  // Here you can implement functionality to save the completion track, such as using localStorage or sending data to a server
-  alert('Progress saved successfully!');
+    saveButton.addEventListener('click', function() {
+    // Here you can implement functionality to save the completion track, such as using localStorage or sending data to a server
+    alert('Progress saved successfully!');
 });
 // JavaScript to display the tutorial modal
 
@@ -589,6 +595,8 @@ document.addEventListener("DOMContentLoaded", function() {
   const closeButton = modal.querySelector(".close");
   const steps = modal.querySelectorAll(".step");
   let currentStep = 0;
+  updateProgress();
+  updateMainCourseCompletion(this.closest('.course')); 
 
   // Show the modal
   modal.style.display = "block";
