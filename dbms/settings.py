@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-#vnfh5cavbf2h5u$b%$9e%me^8b&q3%1xk88qbag2%ourz(u1o"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['*','127.0.0.1','192.168.0.187','.vercel.app', '.now.sh','https://le-pro-man.vercel.app/']
+ALLOWED_HOSTS = ['*','127.0.0.1','192.168.0.187','.vercel.app', '.now.sh','https://le-pro-man.vercel.app/','le-pro-man.vercel.app','le-pro-man.vercel.app']
 
 
 # Application definition
@@ -36,8 +36,9 @@ ALLOWED_HOSTS = ['*','127.0.0.1','192.168.0.187','.vercel.app', '.now.sh','https
 INSTALLED_APPS = [
     # 'proto',
     # 'proto1',
-    # 'proto2',
+    'proto2',
     # 'proto3',
+    'user',
     'user.apps.UserConfig',
     'crispy_forms',
     'crispy_bootstrap4',
@@ -64,7 +65,7 @@ ROOT_URLCONF = "dbms.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'user')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
