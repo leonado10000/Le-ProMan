@@ -28,7 +28,7 @@ SECRET_KEY = "django-insecure-#vnfh5cavbf2h5u$b%$9e%me^8b&q3%1xk88qbag2%ourz(u1o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*','127.0.0.1','192.168.0.187','.vercel.app', '.now.sh','https://le-pro-man.vercel.app/','le-pro-man.vercel.app','le-pro-man.vercel.app']
+ALLOWED_HOSTS = ['*','127.0.0.1','192.168.183.13','192.168.0.187','.vercel.app', '.now.sh','https://le-pro-man.vercel.app/','le-pro-man.vercel.app','le-pro-man.vercel.app']
 
 
 # Application definition
@@ -36,9 +36,9 @@ ALLOWED_HOSTS = ['*','127.0.0.1','192.168.0.187','.vercel.app', '.now.sh','https
 INSTALLED_APPS = [
     # 'proto',
     # 'proto1',
-    'proto2',
+    # 'proto2',
     # 'proto3',
-    'user',
+    # 'user',
     'user.apps.UserConfig',
     'crispy_forms',
     'crispy_bootstrap4',
@@ -83,25 +83,25 @@ WSGI_APPLICATION = "dbms.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get("DB_NAME"),
-        'USER': os.environ.get("DB_USER"),
-        'PASSWORD': os.environ.get("DB_PASSWORD"),
-        'HOST': os.environ.get("DB_HOST"),
-        'PORT': os.environ.get("DB_PORT"),
-    }
-}
-
 # DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "test3",
-#         'USER': 'moni',
-#         'PASSWORD': 'moni'
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('POSTGRES_DATABASE'),
+#         'USER': os.getenv('POSTGRES_USER'),
+#         'PASSWORD': os.getenv('POSTGRES_PASSWORD'),
+#         'HOST': os.getenv('POSTGRES_HOST'),
+#         'PORT': os.getenv('POSTGRES_DB_PORT'),
 #     }
 # }
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "test3",
+        'USER': 'moni',
+        'PASSWORD': 'moni'
+    }
+}
 
 
 # Password validation
@@ -142,7 +142,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

@@ -115,11 +115,13 @@ def pprofile(request,usernname):
 	if request.user.is_authenticated:
 		# print("Working")
 		# try:
+			
+			# SELECT * FROM User WHERE username = 'usernname';
+			# SELECT * FROM profile WHERE uid = (SELECT uid FROM User WHERE username = 'usernname');
+			# SELECT * FROM Prograss WHERE User_ID = (SELECT uid FROM User WHERE username = 'usernname');
+
 			userdata = User.objects.get(username=usernname)
 			profiledata = profile.objects.get(uid = userdata).__dict__
-			#---------------------------------------------------
-			#---------------------------------------------------
-			# If the user is loggeed in bring all his progress data 
 			progressData = [x.__dict__ for x in Prograss.objects.filter(User_ID = userdata)]
 			if userdata:
 				userdata = userdata.__dict__
@@ -129,6 +131,7 @@ def pprofile(request,usernname):
 				prog['percentage'] =  "%.2f" % (100*len([x for x in prog['Completed_topic_IDs'].split(',') if '0' <= x <= '9999'])/len([x for x in prog['Incompleted_topic_IDs'].split(',') if '0' <= x <= '999' ]))
 			
 				print([x for x in prog['Completed_topic_IDs'].split(',') if '0' <= x <= '9999'],[x for x in prog['Incompleted_topic_IDs'].split(',') if '0' <= x <= '999' ])
+			print(progressData)
 			return render(request, 'profile/profile.html' ,{
 				"userdata" : userdata,
 				"profiledata":profiledata,
@@ -150,6 +153,18 @@ def pprofile(request,usernname):
 
 
 def course(request, courseid):
+
+	# We have "Course ID", we send it to the table COURSES
+
+	# SELECT * 
+	# FROM Topics 
+	# WHERE Topic_ID IN (
+	# 	SELECT Topics_IDs 
+	# 	FROM CTtable 
+	# 	WHERE Course_ID = (SELECT Course_ID FROM Courses WHERE Course_ID = courseid) 
+	# 	AND Topics_IDs BETWEEN '-10' AND '99999'
+	# );
+
 	course = Courses.objects.get(Course_ID = courseid).__dict__
 	print([tid for tid in CTtable.objects.get(Course_ID=course['Course_ID']).__dict__['Topics_IDs'].split(',') if '-10' <= tid <= '9999' ])
 	topicdata = [Topics.objects.get(Topic_ID=tid).__dict__ for tid in str(CTtable.objects.get(Course_ID=course['Course_ID']).__dict__['Topics_IDs']).split(',') if '-10' <= tid <= '99999' ]
@@ -192,7 +207,6 @@ def course(request, courseid):
 				enrollementStatus = True
 				for tdata in  topicdata:
 					tdata["Completed"] = True if tdata['Topic_ID'] in "".join(val['Completed_topic_IDs']).split(',') else False
-
 
 	return render(request, 'courses/general.html', {
 		"courseData":course,
